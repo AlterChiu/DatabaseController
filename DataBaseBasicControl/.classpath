@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="C:/code/JAVA library/commonTool.jar"/>
+	<classpathentry kind="lib" path="C:/code/JAVA library/dataBase/maria/mariadb-java-client-2.0.0-RC-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/code/JAVA library/dataBase/maria/mchange-commons-java-0.2.11.jar"/>
+	<classpathentry kind="lib" path="C:/code/JAVA library/dataBase/maria/mysql-connector-java-5.1.8.jar"/>
+	<classpathentry kind="lib" path="C:/code/JAVA library/dataBase/msSql/izmado.jar"/>
+	<classpathentry kind="lib" path="C:/code/JAVA library/dataBase/msSql/jtds-1.2.2.jar"/>
+	<classpathentry kind="lib" path="C:/code/JAVA library/dataBase/msSql/sqljdbc4-2.0.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
