@@ -11,7 +11,10 @@ public class JDBCConnectionStatement {
 	private String user;
 	private String pass;
 	private String driver;
-
+	public static String mySqlDriver = "com.mysql.jdbc.Driver";
+	public static String msServerDriver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+	
+	
 	public JDBCConnectionStatement(String url, String user, String pass, String driver) {
 		this.url = url;
 		this.user = user;

@@ -15,14 +15,14 @@ public class Runtimes {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException, ParseException {
 		// TODO Auto-generated method stub
-		String fileAdd = "C:\\Users\\alter\\Desktop\\dataBase\\propertyFile";
+		String fileAdd = "C:\\Users\\User\\Desktop\\propertyFile";
 		try{
 			fileAdd = args[0];
 		}catch(Exception e){
 			fileAdd = new File(".").getAbsolutePath();
 			fileAdd = fileAdd.substring(0,fileAdd.length()-1)  + "propertyFile";
 		}
-	
+//	
 		System.out.println("profileAdd : " +   fileAdd);
 		TreeMap<Integer,TreeMap<String,String>> profileArrays = new PropertyFile(fileAdd).getProfileArray();
 		int[] orderKey = profileArrays.keySet().stream().mapToInt(i->i).toArray();

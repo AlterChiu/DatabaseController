@@ -13,7 +13,7 @@ public class ResultTranslate {
 	int recdate = 1;
 	int stno = 0;
 
-	public ResultTranslate(ArrayList<String[]> result, String column , int timeStep) {
+	public ResultTranslate(ArrayList<String[]> result, String column, int timeStep) {
 		this.result = result;
 		this.timeStep = timeStep;
 		try {
@@ -22,7 +22,6 @@ public class ResultTranslate {
 				stno = 1;
 			}
 		} catch (Exception e) {
-
 		}
 	}
 
@@ -31,13 +30,16 @@ public class ResultTranslate {
 
 		for (int line = 0; line < content.length; line++) {
 			for (int column = 2; column < timeStep; column++) {
-				String[] tempt = new String[3];
-				tempt[stno] = "\'"+content[line][0]+"\'";
-				tempt[recdate] ="\'"+ tt.milliToDate((tt.StringToLong(content[line][1], format) + (column - 2) * (long) milli),
-						format) + "\'";
-				tempt[2] = content[line][column];
-				outArrays.add(tempt);
+				try {
+					String[] tempt = new String[3];
+					tempt[stno] = "\'" + content[line][0] + "\'";
+					tempt[recdate] = "\'" + tt.milliToDate(
+							(tt.StringToLong(content[line][1], format) + (column - 2) * (long) milli), format) + "\'";
+					tempt[2] = content[line][column];
+					outArrays.add(tempt);
+				} catch (Exception e) {
 
+				}
 			}
 		}
 		return this.outArrays;
