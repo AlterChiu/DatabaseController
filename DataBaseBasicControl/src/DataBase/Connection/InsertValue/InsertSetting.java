@@ -2,15 +2,10 @@ package DataBase.Connection.InsertValue;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.TreeMap;
-
-import DataBase.Setting.BasicSetting;
 
 public class InsertSetting {
 
@@ -42,7 +37,7 @@ public class InsertSetting {
 			// get the name list of column in insertDB
 			String columnName = columnNameList[0];
 			String mark = "?";
-			for (int i = 1; i < insertValue.get(0).length; i++) {
+			for (int i = 0; i < insertValue.get(0).length; i++) {
 				columnName = columnNameList[i] + "," + insertValue.get(0)[i];
 				mark = mark + ", ?";
 			}
@@ -81,7 +76,6 @@ public class InsertSetting {
 		insertCon.setAutoCommit(false);
 		if (insertValue != null) {
 			// get the name list of column in insertDB
-
 			String mark = "?";
 			for (int i = 1; i < insertValue.get(0).length; i++) {
 				mark = mark + ", ?";
@@ -92,6 +86,7 @@ public class InsertSetting {
 			PreparedStatement pre = insertCon.prepareStatement(sql);
 			// prepared statement setting
 			for (int row = 0; row < insertValue.size(); row++) {
+				System.out.println(row);
 				for (int column = 1; column <= insertValue.get(row).length; column++) {
 					pre.setString(column, insertValue.get(row)[column - 1]);
 				}
@@ -118,16 +113,26 @@ public class InsertSetting {
 		Statement pre = this.insertCon.createStatement();
 
 		for (int i = 0; i < insertValue.size(); i++) {
-			sqlString.append("(" + String.join(",", Arrays.asList(insertValue.get(i))) + ")\r\n,");
+			sqlString.append("(" + String.join(",", Arrays.asList(insertValue.get(i))) + "),");
 		}
 
 		if (insertValue.size() < 1) {
 
 		} else {
 			String temptString = sqlString.toString();
-			temptString = temptString.substring(0, temptString.length() - 1) + ";";
+			temptString = temptString.substring(0, temptString.length() - 1);
 			pre.executeUpdate(temptString);
-			pre.close();
+
+			try {
+				insertCon.commit();
+				System.out.println("Seccess when insert to " + insertTable);
+			} catch (SQLException e) {
+				System.out.println("There is error data in" + insertTable);
+				e.printStackTrace();
+			} finally {
+				pre.close();
+			}
+
 		}
 
 	}
