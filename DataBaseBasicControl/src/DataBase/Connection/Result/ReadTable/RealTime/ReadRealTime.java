@@ -29,9 +29,10 @@ public class ReadRealTime {
 	public ReadRealTime(ReadTableImplement implement) throws SQLException {
 		String date = new TimeTranslate().milliToDate(System.currentTimeMillis() - 2 * 3600 * 1000,
 				"yyyy-MM-dd HH:mm:ss");
+		date = "\'" + date + "\'";
 		this.metaResource = implement.getMetaData();
 		String dateColumnName = metaResource.getDateColumnName();
-		String sql = "select * from " + implement.getTableName() + "where "+dateColumnName+" > " + date;
+		String sql = "select * from " + implement.getTableName() + " where "+dateColumnName+" > " + date;
 		this.rs = implement.getConnection().prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
 				.executeQuery();
 	}

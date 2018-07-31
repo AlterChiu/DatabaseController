@@ -11,16 +11,13 @@ import com.microsoft.sqlserver.jdbc.SQLServerResultSet;
 
 public class MetaDataResource {
 
-	private String table;
-	private Connection con;
+	private String dateColumnName;
 	ResultSetMetaData tempRsm = null;
 
 	// get MetaDataResult by select*table
 
 	public MetaDataResource(Connection con, String table) throws SQLException {
-		this.con = con;
-		this.table = table;
-
+		// check for the mssql or the mysql
 		try {
 			String sql = "Select top 2  * from " + table;
 			ResultSet rs = con.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
@@ -34,21 +31,19 @@ public class MetaDataResource {
 					.executeQuery();
 			this.tempRsm = rs.getMetaData();
 		}
-	}
 
-	public String getDateColumnName() throws SQLException {
-
-		// SQL for ms sql
-
-		// GET date type column
-		String dateColumnName = "";
+		// get the date column naem
 		for (int i = 1; i <= tempRsm.getColumnCount(); i++) {
 			if (tempRsm.getColumnTypeName(i).equals("DATETIME") || tempRsm.getColumnTypeName(i).equals("datetime")
 					|| tempRsm.getColumnTypeName(i).equals("smalldatetime")) {
 				dateColumnName = tempRsm.getColumnName(i);
 				i = tempRsm.getColumnCount() + 1;
+				break;
 			}
 		}
+	}
+
+	public String getDateColumnName() throws SQLException {
 		return dateColumnName;
 	}
 

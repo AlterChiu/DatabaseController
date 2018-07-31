@@ -19,8 +19,7 @@ public class ResultSetSection {
 
 	/**
 	 * 
-	 * @param the
-	 *            index of resultSet section
+	 * @param the       index of resultSet section
 	 * @param resultSet
 	 * @return TreeMap<Integer,String[]> the value of table of this section
 	 * @throws SQLException
@@ -39,24 +38,24 @@ public class ResultSetSection {
 				String[] tempt = new String[rs.getMetaData().getColumnCount()];
 				for (int column = 0; column < tempt.length; column++) {
 					try {
-						tempt[column] = rs.getString(column + 1);
+						tempt[column] = rs.getObject(column + 1) + "";
 					} catch (Exception e) {
 						tempt[column] = "";
 					}
 				}
 				tr.add(tempt);
-				
+
 				// if the last section is done break the loop
 //========================================
-				if(!rs.isLast()){
+				if (!rs.isLast()) {
 					rs.next();
-				}else{
+				} else {
 					break;
 				}
 //========================================
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); 
+			e.printStackTrace();
 		}
 		return this.tr;
 	}
@@ -66,9 +65,9 @@ public class ResultSetSection {
 			while (rs.next()) {
 				String[] tempt = new String[rs.getMetaData().getColumnCount()];
 				for (int column = 0; column < tempt.length; column++) {
-					try{
-						tempt[column] = rs.getString(column + 1);
-					}catch(Exception e){
+					try {
+						tempt[column] = rs.getObject(column + 1) + "";
+					} catch (Exception e) {
 						tempt[column] = "";
 					}
 				}

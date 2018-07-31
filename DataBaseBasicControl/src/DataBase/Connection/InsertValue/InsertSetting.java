@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.TreeMap;
 
 import DataBase.Setting.BasicSetting;
@@ -17,11 +18,9 @@ public class InsertSetting {
 	private String insertTable;
 	private String[] columnNameList;
 
-	public InsertSetting(ArrayList<String[]> insertValue, Connection insertCon, String insertTable,
-			String[] columnNameList) {
+	public InsertSetting(Connection insertCon, String insertTable) {
 		this.insertCon = insertCon;
 		this.insertTable = insertTable;
-		
 	}
 
 	public InsertSetting(InsertTableImplement implement) throws SQLException {
@@ -36,7 +35,7 @@ public class InsertSetting {
 	 * @throws SQLException
 	 */
 
-	public void insertValue(ArrayList<String[]> insertValue) throws SQLException {
+	public void insertValue(List<String[]> insertValue) throws SQLException {
 		insertCon.setAutoCommit(false);
 		if (insertValue != null) {
 
@@ -61,7 +60,7 @@ public class InsertSetting {
 					pre.executeUpdate();
 				} catch (Exception e) {
 				}
-				
+
 			}
 			// insert value
 			insertCon.commit();
@@ -78,7 +77,7 @@ public class InsertSetting {
 	 * @throws SQLException
 	 */
 
-	public void insertValueNoName(ArrayList<String[]> insertValue) throws SQLException {
+	public void insertValueNoName(List<String[]> insertValue) throws SQLException {
 		insertCon.setAutoCommit(false);
 		if (insertValue != null) {
 			// get the name list of column in insertDB
@@ -100,7 +99,7 @@ public class InsertSetting {
 					pre.executeUpdate();
 				} catch (Exception e) {
 				}
-			
+
 			}
 			// insert value
 			insertCon.commit();
@@ -110,27 +109,27 @@ public class InsertSetting {
 			System.out.println("There is error data in" + insertTable);
 		}
 	}
-	
-	public void insertValueFast(ArrayList<String[]> insertValue) throws SQLException {
-		 StringBuilder sqlString = new StringBuilder();
-	
-		 sqlString.append( " insert  ignore  into " + insertTable + " values ");
-		 
-		 Statement pre = this.insertCon.createStatement();
-		 
-		for(int i=0;i<insertValue.size();i++){
+
+	public void insertValueFast(List<String[]> insertValue) throws SQLException {
+		StringBuilder sqlString = new StringBuilder();
+
+		sqlString.append(" insert  ignore  into " + insertTable + " values ");
+
+		Statement pre = this.insertCon.createStatement();
+
+		for (int i = 0; i < insertValue.size(); i++) {
 			sqlString.append("(" + String.join(",", Arrays.asList(insertValue.get(i))) + ")\r\n,");
 		}
-		
-		if(insertValue.size()<1){
-			
-		}else{
+
+		if (insertValue.size() < 1) {
+
+		} else {
 			String temptString = sqlString.toString();
-			temptString = temptString.substring(0,temptString.length()-1) + ";";
+			temptString = temptString.substring(0, temptString.length() - 1) + ";";
 			pre.executeUpdate(temptString);
 			pre.close();
 		}
-		
+
 	}
-	
+
 }
