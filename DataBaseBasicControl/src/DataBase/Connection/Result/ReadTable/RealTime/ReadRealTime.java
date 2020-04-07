@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import DataBase.Connection.Result.MetaData.MetaDataResource;
 import DataBase.Connection.Result.ReadTable.ReadTableImplement;
-import usualTool.TimeTranslate;
+import DataBase.Setting.TimeTranslate;
 
 
 
@@ -17,7 +17,7 @@ public class ReadRealTime {
 	private MetaDataResource metaResource ;
 
 	public ReadRealTime(Connection readCon, String table) throws SQLException {
-		String date = new TimeTranslate().milliToDate(System.currentTimeMillis() - 2 * 3600 * 1000,
+		String date = TimeTranslate.milliToDate(System.currentTimeMillis() - 2 * 3600 * 1000,
 				"yyyy-MM-dd HH:mm:ss");
 		this.metaResource = new MetaDataResource(readCon,table);
 		String dateColumnName = metaResource.getDateColumnName();
@@ -27,7 +27,7 @@ public class ReadRealTime {
 	}
 
 	public ReadRealTime(ReadTableImplement implement) throws SQLException {
-		String date = new TimeTranslate().milliToDate(System.currentTimeMillis() - 2 * 3600 * 1000,
+		String date = TimeTranslate.milliToDate(System.currentTimeMillis() - 2 * 3600 * 1000,
 				"yyyy-MM-dd HH:mm:ss");
 		date = "\'" + date + "\'";
 		this.metaResource = implement.getMetaData();

@@ -3,12 +3,11 @@ package DataBase.Connection.Result;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import usualTool.TimeTranslate;
+import DataBase.Setting.TimeTranslate;
 
 public class ResultTranslate {
 	ArrayList<String[]> outArrays = new ArrayList<String[]>();
 	ArrayList<String[]> result = new ArrayList<String[]>();
-	TimeTranslate tt = new TimeTranslate();
 	int timeStep;
 	int recdate = 1;
 	int stno = 0;
@@ -33,8 +32,9 @@ public class ResultTranslate {
 				try {
 					String[] tempt = new String[3];
 					tempt[stno] = "\'" + content[line][0] + "\'";
-					tempt[recdate] = "\'" + tt.milliToDate(
-							(tt.StringToLong(content[line][1], format) + (column - 2) * (long) milli), format) + "\'";
+					tempt[recdate] = "\'" + TimeTranslate.milliToDate(
+							(TimeTranslate.StringToLong(content[line][1], format) + (column - 2) * (long) milli),
+							format) + "\'";
 					tempt[2] = content[line][column];
 					outArrays.add(tempt);
 				} catch (Exception e) {
